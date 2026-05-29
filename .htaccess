@@ -1,0 +1,6 @@
+Options -Indexes
+php_flag display_errors off
+
+<FilesMatch "\.(php|sql)$">
+    # Additional security headers can be added here if needed
+</FilesMatch>

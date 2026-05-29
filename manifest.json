@@ -1,0 +1,9 @@
+{
+  "name": "YGR signature Shop Manager",
+  "short_name": "YGR signature",
+  "description": "Your restaurant, managed brilliantly.",
+  "start_url": "/yarahman/pages/dashboard.php",
+  "display": "standalone",
+  "background_color": "#0D2818",
+  "theme_color": "#0D2818"
+}
