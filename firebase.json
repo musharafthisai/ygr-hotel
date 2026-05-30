@@ -7,12 +7,20 @@
       "**/node_modules/**",
       "Dockerfile",
       "docker-compose.yml",
-      "cloudbuild.yaml"
+      "cloudbuild.yaml",
+      "*.php",
+      "**/*.php"
     ],
-    "rewrites": [
+    "redirects": [
       {
-        "source": "**",
-        "destination": "/index.php"
+        "source": "*.php",
+        "destination": "/index.html",
+        "type": 302
+      },
+      {
+        "source": "**/*.php",
+        "destination": "/index.html",
+        "type": 302
       }
     ]
   }
