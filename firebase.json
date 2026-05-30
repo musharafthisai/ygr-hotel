@@ -12,10 +12,7 @@
     "rewrites": [
       {
         "source": "**",
-        "run": {
-          "serviceId": "ygr-hotel",
-          "region": "us-central1"
-        }
+        "destination": "/index.php"
       }
     ]
   }
