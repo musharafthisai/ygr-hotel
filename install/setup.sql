@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR(255) NOT NULL,
   role ENUM('owner','branch_admin','staff') NOT NULL,
   is_active TINYINT DEFAULT 1,
+  allowed_categories VARCHAR(50) DEFAULT 'all',
+  totp_secret VARCHAR(255) DEFAULT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (branch_id) REFERENCES branches(id)
 );

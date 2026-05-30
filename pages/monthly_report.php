@@ -20,7 +20,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { primary: '#0D2818', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
+                    colors: { primary: '#F7F7FF', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
                     fontFamily: { display: ['Syne','sans-serif'], body: ['DM Sans','sans-serif'] }
                 }
             }
@@ -60,7 +60,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
     <div class="top-header no-print">
         <div class="header-left">
             <div class="header-brand">
-                <div class="header-brand-icon"><i class="ti ti-bowl-rice"></i></div>
+                <div class="header-brand-icon"><img src="../assets/img/logo.png" alt="YGR" style="height:28px;width:auto;filter:brightness(0)"></div>
                 YGR signature
             </div>
             <nav class="header-center">
@@ -68,6 +68,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 <a href="daily_entry.php" class="nav-link"><i class="ti ti-pencil-plus"></i> Entry</a>
                 <a href="weekly_report.php" class="nav-link"><i class="ti ti-file-analytics"></i> Weekly</a>
                 <a href="monthly_report.php" class="nav-link active"><i class="ti ti-calendar-stats"></i> Monthly</a>
+                <a href="online_sales.php" class="nav-link"><i class="ti ti-truck-delivery"></i> Online</a>
                 <a href="settings.php" class="nav-link"><i class="ti ti-settings"></i> Settings</a>
             </nav>
         </div>
@@ -125,7 +126,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-xl">
             <div class="card" style="background: rgba(45, 80, 22, 0.04); border-color: rgba(45, 80, 22, 0.15);">
                 <h3 class="font-bold mb-md" style="font-family:'Syne',sans-serif; font-size:16px;">
-                    <i class="ti ti-shopping-cart" style="color:var(--primary);"></i> Online Sales
+                    <i class="ti ti-shopping-cart" style="color:#27187E;"></i> Online Sales
                 </h3>
                 <div class="flex-between mb-sm"><span class="text-muted">Swiggy</span> <strong id="sum-swiggy">₹0</strong></div>
                 <div class="flex-between mb-sm"><span class="text-muted">Zomato</span> <strong id="sum-zomato">₹0</strong></div>
@@ -237,8 +238,8 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
 
         function getFoodImg(name, category = 'sales') {
             const initial = (name.trim().charAt(0) || '?').toUpperCase();
-            const c1 = category === 'sales' ? '#0D2818' : '#DC2626';
-            const c2 = category === 'sales' ? '#1E7B4B' : '#EF4444';
+            const c1 = category === 'sales' ? '#27187E' : '#DC2626';
+            const c2 = category === 'sales' ? '#F7F7FF' : '#EF4444';
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">`
                 + `<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">`
                 + `<stop offset="0%" style="stop-color:${c1}"/>`

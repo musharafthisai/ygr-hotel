@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div style="font-size:0.8125rem; opacity:0.8;">Check your inbox for the password reset email. Valid for 1 hour.</div>
                 </div>
             </div>
-            <a href="index.php" class="btn btn-primary btn-block mt-lg" style="justify-content:center;">
+            <a href="login.php" class="btn btn-primary btn-block mt-lg" style="justify-content:center;">
                 <i class="ti ti-arrow-left"></i> Back to Login
             </a>
         <?php else: ?>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             
             <div style="text-align: center;">
-                <a href="index.php" style="font-size:0.875rem; font-weight:600; color:var(--color-primary); text-decoration:none;">
+                <a href="login.php" style="font-size:0.875rem; font-weight:600; color:var(--color-primary); text-decoration:none;">
                     <i class="ti ti-arrow-left" style="vertical-align:middle;"></i> Back to Login
                 </a>
             </div>

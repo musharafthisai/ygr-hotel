@@ -43,10 +43,10 @@ const ROLES = [
  * Generate an SVG data URI placeholder for an item.
  * Shows first letter of item name on a gradient background.
  */
-function getFoodImageDataUri(string $name, string $category = 'sales'): string {
+function getFoodImageDataUri(string $name, string $category = 'expense'): string {
     $initial = strtoupper(substr(trim($name), 0, 1)) ?: '?';
-    $c1 = $category === 'sales' ? '#0D2818' : '#DC2626';
-    $c2 = $category === 'sales' ? '#1E7B4B' : '#EF4444';
+    $c1 = '#27187E';
+    $c2 = '#F7F7FF';
     $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">'
          . '<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">'
          . '<stop offset="0%" style="stop-color:' . $c1 . '"/>'
@@ -64,7 +64,7 @@ function getFoodImageDataUri(string $name, string $category = 'sales'): string {
  * @param string $category 'sales' or 'expense'
  * @return string URL or data URI (never empty, never broken)
  */
-function getFoodImageUrl(string $name, string $category = 'sales'): string {
+function getFoodImageUrl(string $name, string $category = 'expense'): string {
     $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', trim($name)));
     $slug = trim($slug, '-');
     $base_dir = __DIR__ . '/../assets/img/items/';

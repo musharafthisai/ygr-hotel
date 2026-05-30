@@ -2,8 +2,26 @@
   "name": "YGR signature Shop Manager",
   "short_name": "YGR signature",
   "description": "Your restaurant, managed brilliantly.",
-  "start_url": "/yarahman/pages/dashboard.php",
+  "start_url": "/pages/dashboard.php",
   "display": "standalone",
-  "background_color": "#0D2818",
-  "theme_color": "#0D2818"
+  "background_color": "#27187E",
+  "theme_color": "#27187E",
+  "orientation": "portrait-primary",
+  "categories": ["business", "food", "productivity"],
+  "icons": [
+    {
+      "src": "assets/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
 }

@@ -228,8 +228,8 @@ function formatCurrencyFull(amount) {
 
 function getFoodImageDataUri(name, category = 'sales') {
     const initial = (name.trim().charAt(0) || '?').toUpperCase();
-    const c1 = category === 'sales' ? '#0D2818' : '#DC2626';
-    const c2 = category === 'sales' ? '#1E7B4B' : '#EF4444';
+    const c1 = category === 'sales' ? '#27187E' : '#DC2626';
+    const c2 = category === 'sales' ? '#F7F7FF' : '#EF4444';
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">`
         + `<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">`
         + `<stop offset="0%" style="stop-color:${c1}"/>`

@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else if ($action === 'add_item') {
             $item_name = trim($_POST['item_name'] ?? '');
-            $category = $_POST['category'] ?? 'sales';
+            $category = $_POST['category'] ?? 'expense';
             $rate = floatval($_POST['rate'] ?? 0);
             if (!empty($item_name)) {
                 try {
@@ -127,11 +127,6 @@ $stmt = $pdo->prepare("SELECT * FROM item_rates WHERE branch_id = ? ORDER BY sor
 // Auto-seed default items if table is empty
 if (count($items) === 0 && $branch_id !== null) {
     $sort = 0;
-    foreach (ITEMS_SALES as $name) {
-        $sort++;
-        $stmt = $pdo->prepare("INSERT IGNORE INTO item_rates (branch_id, item_name, rate, category, sort_order) VALUES (?, ?, ?, 'sales', ?)");
-        $stmt->execute([$branch_id, $name, 0, $sort]);
-    }
     foreach (ITEMS_EXPENSE as $name) {
         $sort++;
         $stmt = $pdo->prepare("INSERT IGNORE INTO item_rates (branch_id, item_name, rate, category, sort_order) VALUES (?, ?, ?, 'expense', ?)");
@@ -159,7 +154,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { primary: '#0D2818', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
+                    colors: { primary: '#F7F7FF', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
                     fontFamily: { display: ['Syne','sans-serif'], body: ['DM Sans','sans-serif'] }
                 }
             }
@@ -172,19 +167,19 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         .tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--surface); border-radius: var(--radius-lg); padding: 4px; border: 1px solid var(--border); }
         .tab-btn { flex: 1; padding: 10px 16px; border: none; background: transparent; border-radius: var(--radius-md); font-weight: 600; font-size: 13px; color: var(--text-secondary); cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .tab-btn:hover { background: var(--bg); }
-        .tab-btn.active { background: var(--primary); color: white; }
+        .tab-btn.active { background: #27187E; color: #F7F7FF; }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; }
         .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
         .staff-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); display: flex; align-items: center; gap: 14px; padding: 14px 16px; transition: all var(--transition); }
-        .staff-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+        .staff-card:hover { border-color: #27187E; box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .staff-card-img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--border-light); }
         .staff-card-body { flex: 1; min-width: 0; }
         .staff-card-name { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 6px; }
         .staff-card-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .staff-card-actions { display: flex; gap: 4px; }
         .staff-badge-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-        .staff-badge-dot.active { background: var(--success); box-shadow: 0 0 0 3px rgba(30,123,75,0.2); }
+        .staff-badge-dot.active { background: var(--success); box-shadow: 0 0 0 3px rgba(39,24,126,0.2); }
         .staff-badge-dot.inactive { background: var(--danger); }
         .btn-icon-sm { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all var(--transition); background: var(--surface); }
         .btn-icon-sm.warning:hover { background: var(--warning-light); border-color: var(--warning); color: var(--warning); }
@@ -206,15 +201,15 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         
         .item-card:hover {
             transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 16px 32px rgba(13,40,24,0.15);
+            border-color: #27187E;
+            box-shadow: 0 16px 32px rgba(39,24,126,0.15);
         }
         
         .item-card-image-wrap {
             width: 100%;
             height: 130px;
             overflow: hidden;
-            background: linear-gradient(135deg, #0D2818, #1E7B4B);
+            background: linear-gradient(135deg, #27187E, #F7F7FF);
             position: relative;
             display: flex;
             align-items: center;
@@ -280,20 +275,15 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
             width: fit-content;
         }
         
-        .item-card-category.sales {
-            background: rgba(30,123,75,0.1);
-            color: var(--success);
-        }
-        
         .item-card-category.expense {
-            background: rgba(220,38,38,0.1);
-            color: var(--danger);
+            background: rgba(39,24,126,0.1);
+            color: var(--success);
         }
         
         .item-card-price {
             font-weight: 700;
             font-size: 1.125rem;
-            color: var(--primary);
+            color: #27187E;
         }
         
         .item-card-actions {
@@ -327,7 +317,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
             color: white; display: flex; align-items: center; justify-content: center;
             cursor: pointer; font-size: 14px; transition: all 0.2s ease; backdrop-filter: blur(4px);
         }
-        .item-card-upload-btn:hover { background: var(--primary); border-color: white; transform: scale(1.1); }
+        .item-card-upload-btn:hover { background: #27187E; border-color: #27187E; transform: scale(1.1); }
         
         @media (max-width: 1023px) { .settings-page { padding: 16px; padding-bottom: 120px; } }
         @media (max-width: 480px) {
@@ -405,7 +395,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
     <div class="top-header">
         <div class="header-left">
             <div class="header-brand">
-                <div class="header-brand-icon"><i class="ti ti-bowl-rice"></i></div>
+                <div class="header-brand-icon"><img src="../assets/img/logo.png" alt="YGR" style="height:28px;width:auto;filter:brightness(0)"></div>
                 YGR signature
             </div>
             <nav class="header-center">
@@ -413,6 +403,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 <a href="daily_entry.php" class="nav-link"><i class="ti ti-pencil-plus"></i> Entry</a>
                 <a href="weekly_report.php" class="nav-link"><i class="ti ti-file-analytics"></i> Weekly</a>
                 <a href="monthly_report.php" class="nav-link"><i class="ti ti-calendar-stats"></i> Monthly</a>
+                <a href="online_sales.php" class="nav-link"><i class="ti ti-truck-delivery"></i> Online</a>
                 <a href="settings.php" class="nav-link active"><i class="ti ti-settings"></i> Settings</a>
             </nav>
         </div>
@@ -459,7 +450,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div id="tab1" class="tab-pane active">
             <div class="card mb-lg">
                 <div class="card-header">
-                    <span class="card-title"><i class="ti ti-plus-circle" style="color:var(--success);"></i> Add New Item</span>
+                    <span class="card-title"><i class="ti ti-plus-circle" style="color:#27187E;"></i> Add New Item</span>
                 </div>
                 <form method="POST">
                     <input type="hidden" name="action" value="add_item">
@@ -468,13 +459,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                             <label class="form-label">Item Name</label>
                             <input type="text" name="item_name" required placeholder="e.g. Chicken Lollipop" class="form-input">
                         </div>
-                        <div class="form-group" style="flex:1; min-width:140px; margin-bottom:0;">
-                            <label class="form-label">Category</label>
-                            <select name="category" class="form-input">
-                                <option value="sales">Sales (Income)</option>
-                                <option value="expense">Expense</option>
-                            </select>
-                        </div>
+                        <input type="hidden" name="category" value="expense">
                         <div class="form-group" style="flex:1; min-width:120px; margin-bottom:0;">
                             <label class="form-label">Rate (₹)</label>
                             <input type="number" step="any" name="rate" value="0.00" class="form-input">
@@ -501,11 +486,10 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                     </div>
                     <?php else: ?>
                     <div class="items-grid">
-                        <?php foreach($items as $it): ?>
-                        <div class="item-card">
+                        <?php foreach($items as $i => $it): ?>
+                        <div class="item-card card-enter" style="--i: <?= $i ?>;">
                             <div class="item-card-image-wrap" style="display:flex;align-items:center;justify-content:center;">
-                                <?php if ($it['category'] === 'sales'): ?>
-                                <div class="item-card-fallback" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0D2818,#1E7B4B);color:white;font-size:36px;font-weight:800;font-family:'Syne',sans-serif;z-index:1;">
+                                <div class="item-card-fallback" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#27187E,#F7F7FF);color:#27187E;font-size:36px;font-weight:800;font-family:'Syne',sans-serif;z-index:1;">
                                     <?= strtoupper(substr($it['item_name'], 0, 1)) ?>
                                 </div>
                                 <?php $img = getFoodImageUrl($it['item_name'], $it['category']); ?>
@@ -515,14 +499,8 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                                      onerror="this.remove()"
                                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s;z-index:2;">
                                 <?php endif; ?>
-                                <?php else: ?>
-                                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#DC2626,#EF4444);color:white;font-size:36px;">
-                                    <i class="ti ti-receipt"></i>
-                                </div>
-                                <?php endif; ?>
-                                <span class="item-card-badge" style="background:<?= $it['category']==='sales' ? 'rgba(30,123,75,0.9)' : 'rgba(220,38,38,0.9)' ?>;z-index:3;">
-                                    <i class="ti ti-<?= $it['category']==='sales' ? 'trending-up' : 'trending-down' ?>"></i>
-                                    <?= ucfirst($it['category']) ?>
+                                <span class="item-card-badge" style="background:rgba(39,24,126,0.85);z-index:3;">
+                                    <i class="ti ti-receipt"></i> Expense
                                 </span>
                                 <button type="button" class="item-card-upload-btn" onclick="document.getElementById('upload_<?= $it['id'] ?>').click()" title="Upload Image"><i class="ti ti-camera"></i></button>
                                 <input type="file" id="upload_<?= $it['id'] ?>" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none" onchange="uploadItemImage(this, '<?= htmlspecialchars($it['item_name'], ENT_QUOTES) ?>', <?= $it['id'] ?>)">
@@ -553,7 +531,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div id="tab2" class="tab-pane">
             <div class="card mb-lg">
                 <div class="card-header">
-                    <span class="card-title"><i class="ti ti-user-plus" style="color:var(--success);"></i> Add Staff Member</span>
+                    <span class="card-title"><i class="ti ti-user-plus" style="color:#27187E;"></i> Add Staff Member</span>
                 </div>
                 <form method="POST" style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end;">
                     <input type="hidden" name="action" value="add_user">
@@ -578,11 +556,10 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                     </div>
                     <div class="form-group" style="flex:1; min-width:150px; margin-bottom:0;">
                         <label class="form-label">Access</label>
-                        <select name="allowed_categories" class="form-input">
-                            <option value="all">All Categories</option>
-                            <option value="sales">Sales Only</option>
-                            <option value="expense">Expense Only</option>
-                        </select>
+                            <select name="allowed_categories" class="form-input">
+                                <option value="all">All Categories</option>
+                                <option value="expense">Expense Only</option>
+                            </select>
                     </div>
                     <div style="width:100%;"><button type="submit" class="btn btn-primary"><i class="ti ti-plus"></i> Add User</button></div>
                 </form>
@@ -637,7 +614,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                                     <button class="btn-icon-sm danger" title="Delete"><i class="ti ti-trash"></i></button>
                                 </form>
                                 <?php else: ?>
-                                <span style="font-size:12px;color:var(--text-muted);"><i class="ti ti-shield-check" style="color:var(--success);"></i></span>
+                                <span style="font-size:12px;color:var(--text-muted);"><i class="ti ti-shield-check" style="color:#27187E;"></i></span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -657,7 +634,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 <?php foreach($users as $u): ?>
                 <div class="user-row" style="<?= $u['id'] == $_SESSION['user_id'] ? 'opacity:0.5;' : '' ?>">
                     <div style="display:flex;align-items:center;gap:12px;">
-                        <div style="width:36px;height:36px;border-radius:50%;background:var(--primary);color:white;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex-shrink:0;">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#27187E;color:#F7F7FF;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex-shrink:0;">
                             <?= strtoupper(substr($u['name'], 0, 2)) ?>
                         </div>
                         <div>
@@ -672,8 +649,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                             <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
                             <select name="allowed_categories" onchange="this.form.submit()" class="form-input" style="width:120px;height:32px;padding:4px 8px;font-size:12px;">
                                 <option value="all" <?= ($u['allowed_categories']??'all')==='all' ? 'selected' : '' ?>>All</option>
-                                <option value="sales" <?= ($u['allowed_categories']??'all')==='sales' ? 'selected' : '' ?>>Sales</option>
-                                <option value="expense" <?= ($u['allowed_categories']??'all')==='expense' ? 'selected' : '' ?>>Expense</option>
+                                <option value="expense" <?= ($u['allowed_categories']??'all')==='expense' ? 'selected' : '' ?>>Expense Only</option>
                             </select>
                         </form>
                         <?php else: ?>
@@ -691,7 +667,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div id="tab3" class="tab-pane">
             <div class="card mb-lg">
                 <div class="card-header">
-                    <span class="card-title"><i class="ti ti-building-plus" style="color:var(--success);"></i> Add Branch</span>
+                    <span class="card-title"><i class="ti ti-building-plus" style="color:#27187E;"></i> Add Branch</span>
                 </div>
                 <form method="POST" style="display:flex; gap:12px; align-items:flex-end;">
                     <input type="hidden" name="action" value="add_branch">
@@ -732,7 +708,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
             <div class="premium-card mb-lg">
                 <div class="premium-card-content">
                     <div style="width:72px;height:72px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                        <i class="ti ti-bowl-rice" style="font-size:32px;color:white;"></i>
+                        <i class="ti ti-bowl-rice" style="font-size:32px;color:#27187E;"></i>
                     </div>
                     <div class="premium-card-label">YGR signature Shop Manager</div>
                     <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:8px;">v2.0 Premium</div>
@@ -745,11 +721,11 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 </div>
                 <div style="display:flex;flex-direction:column;gap:12px;">
                     <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border-light);">
-                        <div style="width:36px;height:36px;background:rgba(13,40,24,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-app-window" style="color:var(--primary);"></i></div>
+                        <div style="width:36px;height:36px;background:rgba(39,24,126,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-app-window" style="color:#27187E;"></i></div>
                         <div><div style="font-weight:600;font-size:14px;">Application</div><div style="font-size:13px;color:var(--text-muted);">YGR signature Shop Manager - Premium Edition</div></div>
                     </div>
                     <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border-light);">
-                        <div style="width:36px;height:36px;background:rgba(30,123,75,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-stack-2" style="color:var(--success);"></i></div>
+                        <div style="width:36px;height:36px;background:rgba(39,24,126,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-stack-2" style="color:#27187E;"></i></div>
                         <div><div style="font-weight:600;font-size:14px;">Version</div><div style="font-size:13px;color:var(--text-muted);">2.0 Premium — <?= date('Y') ?></div></div>
                     </div>
                     <div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;">

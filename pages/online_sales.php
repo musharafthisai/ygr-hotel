@@ -48,7 +48,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { primary: '#0D2818', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
+                    colors: { primary: '#F7F7FF', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
                     fontFamily: { display: ['Syne','sans-serif'], body: ['DM Sans','sans-serif'] }
                 }
             }
@@ -70,7 +70,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
     <div class="top-header">
         <div class="header-left">
             <div class="header-brand">
-                <div class="header-brand-icon"><i class="ti ti-bowl-rice"></i></div>
+                <div class="header-brand-icon"><img src="../assets/img/logo.png" alt="YGR" style="height:28px;width:auto;filter:brightness(0)"></div>
                 YGR signature
             </div>
             <nav class="header-center">
@@ -117,7 +117,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 <div class="online-summary-value">₹<?= number_format($zomato_total, 2) ?></div>
                 <div class="online-summary-orders"><?= count(array_filter($entries, fn($e) => $e['platform'] == 'Zomato')) ?> orders</div>
             </div>
-            <div class="card flex-center" style="background:linear-gradient(135deg,#0D2818,#1A4A2E);color:white;">
+            <div class="card flex-center" style="background:linear-gradient(135deg,#27187E,#F7F7FF);color:#27187E;">
                 <div style="text-align:center;">
                     <div style="font-size:12px;opacity:0.8;text-transform:uppercase;letter-spacing:0.5px;">Combined Total</div>
                     <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;margin-top:4px;">₹<?= number_format($swiggy_total + $zomato_total, 2) ?></div>

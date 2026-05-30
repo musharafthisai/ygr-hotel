@@ -21,7 +21,7 @@ $msg_type = 'success';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_item') {
     $item_name = trim($_POST['item_name'] ?? '');
-    $category = $_POST['category'] ?? 'sales';
+    $category = $_POST['category'] ?? 'expense';
     $rate = floatval($_POST['rate'] ?? 0);
     
     $stmtAllowed = $pdo->prepare("SELECT allowed_categories FROM users WHERE id = ?");
@@ -59,13 +59,7 @@ $stmtAllowed = $pdo->prepare("SELECT allowed_categories FROM users WHERE id = ?"
 $stmtAllowed->execute([$_SESSION['user_id']]);
 $allowed_categories = $stmtAllowed->fetchColumn() ?: 'all';
 
-if ($allowed_categories === 'sales') {
-    $stmt = $pdo->prepare("SELECT item_name, rate, category FROM item_rates WHERE branch_id = ? AND category = 'sales' ORDER BY sort_order ASC");
-} else if ($allowed_categories === 'expense') {
-    $stmt = $pdo->prepare("SELECT item_name, rate, category FROM item_rates WHERE branch_id = ? AND category = 'expense' ORDER BY sort_order ASC");
-} else {
-    $stmt = $pdo->prepare("SELECT item_name, rate, category FROM item_rates WHERE branch_id = ? ORDER BY sort_order ASC");
-}
+$stmt = $pdo->prepare("SELECT item_name, rate, category FROM item_rates WHERE branch_id = ? ORDER BY sort_order ASC");
 $stmt->execute([$branch_id]);
 $items = $stmt->fetchAll();
 
@@ -102,7 +96,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { primary: '#0D2818', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
+                    colors: { primary: '#F7F7FF', accent: '#FB3640', swiggy: '#FF5200', zomato: '#E23744' },
                     fontFamily: { display: ['Syne','sans-serif'], body: ['DM Sans','sans-serif'] }
                 }
             }
@@ -123,13 +117,15 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
     <div class="top-header">
         <div class="header-left">
             <div class="header-brand">
-                <div class="header-brand-icon"><i class="ti ti-bowl-rice"></i></div>
+                <div class="header-brand-icon"><img src="../assets/img/logo.png" alt="YGR" style="height:28px;width:auto;filter:brightness(0)"></div>
                 YGR signature
             </div>
             <nav class="header-center">
                 <a href="dashboard.php" class="nav-link"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
                 <a href="daily_entry.php" class="nav-link active"><i class="ti ti-pencil-plus"></i> Entry</a>
-                <a href="weekly_report.php" class="nav-link"><i class="ti ti-file-analytics"></i> Reports</a>
+                <a href="weekly_report.php" class="nav-link"><i class="ti ti-file-analytics"></i> Weekly</a>
+                <a href="monthly_report.php" class="nav-link"><i class="ti ti-calendar-stats"></i> Monthly</a>
+                <a href="online_sales.php" class="nav-link"><i class="ti ti-truck-delivery"></i> Online</a>
                 <a href="settings.php" class="nav-link"><i class="ti ti-settings"></i> Settings</a>
             </nav>
         </div>
@@ -194,9 +190,8 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                     $price = $ex ? (float)$ex['unit_price'] : (float)$rate;
                     $amount = $ex ? (float)$ex['amount'] : '';
                     $is_filled = $ex ? 'filled' : '';
-                    $cat_class = $cat === 'sales' ? 'sales-card' : 'expense-card';
                 ?>
-                <div class="entry-card <?= $is_filled ?> <?= $cat_class ?> card-enter" style="--i: 1;" data-category="<?= $cat ?>">
+                <div class="entry-card <?= $is_filled ?> expense-card card-enter" style="--i: 1;" data-category="expense">
                     <div class="entry-card-body">
                         <div class="entry-header">
                             <div class="entry-name">

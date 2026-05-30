@@ -118,7 +118,7 @@ if (isset($_GET['token'])) {
         </div>
         <h1 class="login-heading" style="font-size:1.5rem; margin-bottom:8px;">Invalid or Expired Link</h1>
         <p style="color:var(--color-text-secondary);margin-bottom:24px;">This password reset link is invalid or has expired. Please request a new one.</p>
-        <a href="index.php" class="btn btn-primary" style="justify-content:center;"><i class="ti ti-arrow-left"></i> Back to Login</a>
+        <a href="login.php" class="btn btn-primary" style="justify-content:center;"><i class="ti ti-arrow-left"></i> Back to Login</a>
     </div>
 </body>
 </html>
@@ -148,14 +148,14 @@ if (isset($_GET['token'])) {
         </div>
         <h1 class="login-heading" style="font-size:1.5rem; margin-bottom:8px;">Password Reset Successful!</h1>
         <p style="color:var(--color-text-secondary);margin-bottom:24px;">Your password has been updated. You can now log in with your new password.</p>
-        <a href="index.php" class="btn btn-primary" style="justify-content:center;"><i class="ti ti-login"></i> Sign In</a>
+        <a href="login.php" class="btn btn-primary" style="justify-content:center;"><i class="ti ti-login"></i> Sign In</a>
     </div>
 </body>
 </html>
 <?php
     }
 } else {
-    header("Location: index.php");
+    header("Location: login.php");
     exit;
 }
 ?>

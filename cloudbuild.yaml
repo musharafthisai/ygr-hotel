@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ygr-hotel/app:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/ygr-hotel/app:latest']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ygr-hotel'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/ygr-hotel/app:latest'
+      - '--region=us-central1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--add-cloudsql-instances=$PROJECT_ID:us-central1:ygr-hotel-db'
+      - '--set-env-vars=DB_HOST=localhost,DB_NAME=briyani_shop,DB_USER=root,DB_PASS=,DB_SOCKET=/cloudsql/$PROJECT_ID:us-central1:ygr-hotel-db'
+      - '--memory=512Mi'
+      - '--timeout=300'
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/ygr-hotel/app:latest'

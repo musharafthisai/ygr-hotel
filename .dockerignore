@@ -1,0 +1,9 @@
+vendor/
+node_modules/
+.git/
+.gitignore
+*.log
+.DS_Store
+data/
+install/
+php_server.log

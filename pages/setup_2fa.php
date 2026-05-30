@@ -48,7 +48,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         .auth-card { width:100%; max-width:500px; background:white; border-radius:var(--radius-xl); padding:40px; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
         .step-indicator { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:32px; }
         .step-dot { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; background:var(--color-border); color:var(--color-text-muted); transition:all var(--transition-fast); }
-        .step-dot.active { background:var(--color-primary); color:white; }
+        .step-dot.active { background:#27187E; color:#F7F7FF; }
         .step-line { flex:1; max-width:60px; height:2px; background:var(--color-border); }
         .step-line.active { background:var(--color-primary); }
         .qr-container { width:180px; height:180px; margin:0 auto 20px; border:2px solid var(--color-border); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center; overflow:hidden; padding:12px; background:white; }

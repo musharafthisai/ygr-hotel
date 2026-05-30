@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     
     if (empty($username) || empty($password)) {
-        header("Location: ../index.php?error=empty");
+        header("Location: ../login.php?error=empty");
         exit();
     }
     
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($user && password_verify($password, $user['password'])) {
         if ($user['is_active'] == 0) {
-            header("Location: ../index.php?error=inactive");
+            header("Location: ../login.php?error=inactive");
             exit();
         }
         
@@ -48,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         exit();
     } else {
-        header("Location: ../index.php?error=invalid");
+        header("Location: ../login.php?error=invalid");
         exit();
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: ../login.php");
     exit();
 }
 ?>

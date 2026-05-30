@@ -12,7 +12,7 @@ function is_logged_in() {
 
 function check_auth() {
     if (!is_logged_in()) {
-        header("Location: ../index.php");
+        header("Location: ../login.php");
         exit();
     }
     // 2FA enforcement: if user has totp_secret and not verified, redirect to 2FA page
@@ -47,7 +47,7 @@ function check_role($allowed_roles) {
 if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time'] > 28800)) {
     session_unset();
     session_destroy();
-    header("Location: ../index.php?timeout=1");
+    header("Location: ../login.php?timeout=1");
     exit();
 }
 

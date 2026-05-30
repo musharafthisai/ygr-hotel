@@ -23,7 +23,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0D2818',
+                        primary: '#F7F7FF',
                         accent: '#FB3640',
                         swiggy: '#FF5200',
                         zomato: '#E23744',
@@ -54,7 +54,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
     <div class="top-header">
         <div class="header-left">
             <div class="header-brand">
-                <div class="header-brand-icon"><i class="ti ti-bowl-rice"></i></div>
+                <div class="header-brand-icon"><img src="../assets/img/logo.png" alt="YGR" style="height:28px;width:auto;filter:brightness(0)"></div>
                 YGR signature
             </div>
             <nav class="header-center">
@@ -62,6 +62,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                 <a href="daily_entry.php" class="nav-link"><i class="ti ti-pencil-plus"></i> Entry</a>
                 <a href="weekly_report.php" class="nav-link"><i class="ti ti-file-analytics"></i> Weekly</a>
                 <a href="monthly_report.php" class="nav-link"><i class="ti ti-calendar-stats"></i> Monthly</a>
+                <a href="online_sales.php" class="nav-link"><i class="ti ti-truck-delivery"></i> Online</a>
                 <a href="settings.php" class="nav-link"><i class="ti ti-settings"></i> Settings</a>
             </nav>
         </div>
@@ -93,7 +94,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-lg">
             <div class="kpi-card skeleton-card card-enter" style="--i: 1;" id="kpi-sales">
                 <div class="kpi-content" style="display: none;">
-                    <div class="kpi-card-icon" style="background: rgba(30, 123, 75, 0.1); color: var(--success);">
+                    <div class="kpi-card-icon" style="background: rgba(39, 24, 126, 0.1); color: var(--success);">
                         <i class="ti ti-cash"></i>
                     </div>
                     <div class="kpi-card-label">Today Sales</div>
@@ -133,7 +134,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-lg">
             <div class="kpi-card skeleton-card card-enter" style="--i: 5;" id="kpi-week-sales">
                 <div class="kpi-content" style="display: none;">
-                    <div class="kpi-card-icon" style="background: rgba(30, 123, 75, 0.1); color: var(--success);">
+                    <div class="kpi-card-icon" style="background: rgba(39, 24, 126, 0.1); color: var(--success);">
                         <i class="ti ti-trending-up"></i>
                     </div>
                     <div class="kpi-card-label">Week Sales</div>
@@ -192,7 +193,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
         <!-- Row 5: Quick Actions -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 card-enter" style="--i: 12;">
             <div class="quick-action-card" onclick="window.location.href='daily_entry.php'">
-                <div class="quick-action-icon" style="background: rgba(30, 123, 75, 0.1); color: var(--success);">
+                <div class="quick-action-icon" style="background: rgba(39, 24, 126, 0.1); color: var(--success);">
                     <i class="ti ti-pencil-plus"></i>
                 </div>
                 <div class="quick-action-label">Add Today's Entry</div>
@@ -276,9 +277,9 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
             });
         }
 
-        // Mouse Tracking on KPI Cards
+        // Mouse Tracking on Cards
         function attachMouseTracking() {
-            document.querySelectorAll('.kpi-card').forEach(card => {
+            document.querySelectorAll('.kpi-card, .quick-action-card, .item-card, .entry-card, .top-item-card, .staff-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -301,7 +302,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                         {
                             label: 'Sales',
                             data: [18500, 16200, 19800, 21500, 17800, 24500, 18500],
-                            backgroundColor: '#1E7B4B',
+                            backgroundColor: '#27187E',
                             borderRadius: 6,
                             borderSkipped: false,
                         },
@@ -357,7 +358,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                     labels: ['Cash', 'GPay', 'Online'],
                     datasets: [{
                         data: [45, 35, 20],
-                        backgroundColor: ['#1E7B4B', '#3B82F6', '#F59E0B'],
+                        backgroundColor: ['#27187E', '#3B82F6', '#F59E0B'],
                         borderWidth: 0,
                     }]
                 },
@@ -435,7 +436,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                             {
                                 label: 'Sales',
                                 data: data.last7Days.sales,
-                                backgroundColor: '#1E7B4B',
+                                backgroundColor: '#27187E',
                                 borderRadius: 6,
                                 borderSkipped: false,
                             },
@@ -470,7 +471,7 @@ define('BASE_URL', (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/yarahman') !== false
                         labels: ['Cash', 'GPay', 'Online'],
                         datasets: [{
                             data: data.pieData,
-                            backgroundColor: ['#1E7B4B', '#3B82F6', '#F59E0B'],
+                            backgroundColor: ['#27187E', '#3B82F6', '#F59E0B'],
                             borderWidth: 0,
                         }]
                     },
